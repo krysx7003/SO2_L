@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{datetime}
+\usepackage{geometry}
+\usepackage{minted}
+\usepackage{placeins}
+\usepackage{caption}
+\usepackage[document]{ragged2e}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\geometry{
+ a4paper,
+ left=25mm,
+ top=25mm,
+ }
+\captionsetup{hypcap=false} 
+\newdateformat{daymonthyear}{\THEDAY .\THEMONTH .\THEYEAR}
+\title{
+  \centering
+  \includegraphics[width=\textwidth]{images/logo_PWr_kolor_poziom.png}\\
+  \fontsize{28pt}{30pt}\selectfont Sprawozdanie 1\\
+  % \fontsize{14pt}{30pt}\selectfont Ćwiczenie 1.
+  }
+\author{Krzysztof Zalewa}
+\date{\daymonthyear\today}
+\renewcommand*\contentsname{Spis treści}
+\renewcommand{\figurename}{Rysunek}
+\begin{document}
+    \maketitle
+    \pagebreak
+    \tableofcontents
+    \FloatBarrier
+    \section{Wstęp teoretyczny}
+        
+    \section{Zadanie laboratoryjne}
+        \subsection{Treść zadania}
+
+        \subsection{Opis działania programu}
+
+        \subsection{Kod programu}
+
+    \section{Wnioski}
+
+    \section{Źródła}
+    
+\end{document}
