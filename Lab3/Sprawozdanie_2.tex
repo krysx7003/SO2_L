@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{datetime}
+\usepackage{geometry}
+\usepackage{minted}
+\usepackage{placeins}
+\usepackage{caption}
+\usepackage[document]{ragged2e}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\geometry{
+ a4paper,
+ left=25mm,
+ top=25mm,
+ }
+\captionsetup{hypcap=false} 
+\newdateformat{daymonthyear}{\THEDAY .\THEMONTH .\THEYEAR}
+\title{
+  \centering
+  \includegraphics[width=\textwidth]{images/logo_PWr_kolor_poziom.png}\\
+  \fontsize{28pt}{30pt}\selectfont Sprawozdanie 1\\
+  }
+\author{Krzysztof Zalewa}
+\date{\daymonthyear\today}
+\renewcommand*\contentsname{Spis treści}
+\renewcommand{\figurename}{Rysunek}
+\renewcommand{\listingscaption}{Skrypt}
+\begin{document}
+    \maketitle
+    \pagebreak
+    \tableofcontents
+    \FloatBarrier
+    \raggedright
+    \section{Cel skryptu}
+        W ramach zajęć laboratoryjnych należało wykonać dwa skrypty \linebreak
+        1. Skrypt wypisuje 40 losowych liczb i zapisuje je do pliku A.txt następnie znaki 0 zastąpiane są O \linebreak
+        2. Skrypt wykonuje operacje na strumieniach (minimum 3). Powstały strumineń powinien mieć realne zastosowanie.
+        W moim przypadku tworzony jest 7 cyfrowy pin.
+    \section{Opis skryptu}
+      
+        \begin{frame}
+            \scriptsize
+            \inputminted[
+                style={vs},
+                breaklines,
+                breakanywhere, 
+                linenos, 
+                tabsize=4 
+            ]{bash}{./lab3_1.sh}
+            \vspace{1em}
+            \captionof{listing}{}
+            \label{lst:script_1}
+        \end{frame}
+      
+        \begin{frame}
+            \scriptsize
+            \inputminted[
+                style={vs},
+                breaklines,
+                breakanywhere, 
+                linenos, 
+                tabsize=4 
+            ]{bash}{./lab3_2.sh}
+            \vspace{1em}
+            \captionof{listing}{}
+            \label{lst:script_2}
+        \end{frame}
+
+    \section{Wnioski}
+        W wyniku uruchomienia skryptu 1: \linebreak
+        Plik A.txt zawiera ciąg 5532640758763844392042393771802658908476 \linebreak
+        Plik B.txt zawiera ciąg 553264O758763844392O423937718O26589O8476 \linebreak
+
+        W wyniku uruchomienia skryptu 2: \linebreak
+        Plik Wyniki.txt zawiera ciąg 3061969 \linebreak
+
+        Oznacza to że skrypty wykonują się poprawnie.
+
+\end{document}

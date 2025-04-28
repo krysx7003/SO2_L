@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+ch}{\PYGZsh{}!/bin/bash}
+
+\PYG{n+nb}{cd}\PYG{+w}{ }../../../../../../dev
+\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}PWD}
+
+cat\PYG{+w}{ }urandom\PYG{+w}{ }\PYG{p}{|}
+\PYG{+w}{    }tr\PYG{+w}{ }a\PYGZhy{}z\PYG{+w}{ }A\PYGZhy{}Z\PYG{+w}{ }\PYG{p}{|}
+\PYG{+w}{    }tr\PYG{+w}{ }\PYGZhy{}cd\PYG{+w}{ }\PYG{l+m}{0}\PYGZhy{}9\PYG{+w}{ }\PYG{p}{|}
+\PYG{+w}{    }head\PYG{+w}{ }\PYGZhy{}c\PYG{+w}{ }\PYG{l+m}{7}\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }../home/napnap/Studia/SO2/SO2\PYGZus{}L/Lab3/Wynik.txt\PYG{+w}{ }
+
+\PYG{n+nb}{echo}
+\end{Verbatim}

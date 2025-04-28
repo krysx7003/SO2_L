@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+ch}{\PYGZsh{}!/bin/bash}
+
+\PYG{n+nb}{cd}\PYG{+w}{ }../../../../../../dev
+\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}PWD}
+
+cat\PYG{+w}{ }urandom\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }
+\PYG{+w}{    }tr\PYG{+w}{ }\PYGZhy{}cd\PYG{+w}{ }\PYG{l+m}{0}\PYGZhy{}9\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }
+\PYG{+w}{    }head\PYG{+w}{ }\PYGZhy{}c\PYG{+w}{ }\PYG{l+m}{40}\PYG{+w}{ }\PYG{p}{|}
+\PYG{+w}{    }tee\PYG{+w}{ }../home/napnap/Studia/SO2/SO2\PYGZus{}L/Lab3/A.txt\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }
+\PYG{+w}{    }tr\PYG{+w}{ }\PYG{l+m}{0}\PYG{+w}{ }O\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }
+\PYG{+w}{    }tee\PYG{+w}{ }../home/napnap/Studia/SO2/SO2\PYGZus{}L/Lab3/B.txt
+
+\PYG{n+nb}{echo}
+\end{Verbatim}
