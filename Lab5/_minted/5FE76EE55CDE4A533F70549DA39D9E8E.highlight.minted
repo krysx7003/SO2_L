@@ -1,0 +1,38 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{socket}
+\PYG{k+kn}{import} \PYG{n+nn}{threading}
+
+\PYG{k}{def} \PYG{n+nf}{receive\PYGZus{}messages}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{while} \PYG{k+kc}{True}\PYG{p}{:}
+        \PYG{k}{try}\PYG{p}{:}
+            \PYG{n}{message} \PYG{o}{=} \PYG{n}{client}\PYG{o}{.}\PYG{n}{recv}\PYG{p}{(}\PYG{l+m+mi}{1024}\PYG{p}{)}\PYG{o}{.}\PYG{n}{decode}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{utf\PYGZhy{}8}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+            \PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{message}\PYG{p}{)}
+        \PYG{k}{except}\PYG{p}{:}
+            \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Disconnected from server!}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+            \PYG{n}{client}\PYG{o}{.}\PYG{n}{close}\PYG{p}{(}\PYG{p}{)}
+            \PYG{k}{break}
+
+\PYG{k}{def} \PYG{n+nf}{send\PYGZus{}messages}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{while} \PYG{k+kc}{True}\PYG{p}{:}
+        \PYG{n}{message} \PYG{o}{=} \PYG{n+nb}{input}\PYG{p}{(}\PYG{p}{)}
+        \PYG{k}{if} \PYG{n}{message}\PYG{o}{.}\PYG{n}{lower}\PYG{p}{(}\PYG{p}{)} \PYG{o}{==} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{quit}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}
+            \PYG{n}{client}\PYG{o}{.}\PYG{n}{close}\PYG{p}{(}\PYG{p}{)}
+            \PYG{k}{break}
+        \PYG{n}{client}\PYG{o}{.}\PYG{n}{send}\PYG{p}{(}\PYG{n}{message}\PYG{o}{.}\PYG{n}{encode}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{utf\PYGZhy{}8}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}\PYG{p}{)}
+
+\PYG{k}{def} \PYG{n+nf}{start\PYGZus{}client}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{global} \PYG{n}{client}
+    \PYG{n}{client} \PYG{o}{=} \PYG{n}{socket}\PYG{o}{.}\PYG{n}{socket}\PYG{p}{(}\PYG{n}{socket}\PYG{o}{.}\PYG{n}{AF\PYGZus{}INET}\PYG{p}{,} \PYG{n}{socket}\PYG{o}{.}\PYG{n}{SOCK\PYGZus{}STREAM}\PYG{p}{)}
+    \PYG{n}{client}\PYG{o}{.}\PYG{n}{connect}\PYG{p}{(}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{127.0.0.1}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+m+mi}{8080}\PYG{p}{)}\PYG{p}{)}
+    
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Connected to chat server! Type }\PYG{l+s+s2}{\PYGZsq{}}\PYG{l+s+s2}{quit}\PYG{l+s+s2}{\PYGZsq{}}\PYG{l+s+s2}{ to exit.}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+    
+    \PYG{n}{receive\PYGZus{}thread} \PYG{o}{=} \PYG{n}{threading}\PYG{o}{.}\PYG{n}{Thread}\PYG{p}{(}\PYG{n}{target}\PYG{o}{=}\PYG{n}{receive\PYGZus{}messages}\PYG{p}{)}
+    \PYG{n}{receive\PYGZus{}thread}\PYG{o}{.}\PYG{n}{start}\PYG{p}{(}\PYG{p}{)}
+    
+    \PYG{n}{send\PYGZus{}thread} \PYG{o}{=} \PYG{n}{threading}\PYG{o}{.}\PYG{n}{Thread}\PYG{p}{(}\PYG{n}{target}\PYG{o}{=}\PYG{n}{send\PYGZus{}messages}\PYG{p}{)}
+    \PYG{n}{send\PYGZus{}thread}\PYG{o}{.}\PYG{n}{start}\PYG{p}{(}\PYG{p}{)}
+
+\PYG{k}{if} \PYG{n+nv+vm}{\PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{}} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:}
+    \PYG{n}{start\PYGZus{}client}\PYG{p}{(}\PYG{p}{)}
+\end{MintedVerbatim}

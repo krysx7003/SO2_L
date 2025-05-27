@@ -1,0 +1,48 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{socket}
+\PYG{k+kn}{import} \PYG{n+nn}{threading}
+
+\PYG{k}{def} \PYG{n+nf}{handle\PYGZus{}client}\PYG{p}{(}\PYG{n}{client\PYGZus{}socket}\PYG{p}{,} \PYG{n}{client\PYGZus{}address}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{[NEW CONNECTION] }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{client\PYGZus{}address}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ connected.}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+    
+    \PYG{k}{while} \PYG{k+kc}{True}\PYG{p}{:}
+        \PYG{k}{try}\PYG{p}{:}
+            \PYG{n}{message} \PYG{o}{=} \PYG{n}{client\PYGZus{}socket}\PYG{o}{.}\PYG{n}{recv}\PYG{p}{(}\PYG{l+m+mi}{1024}\PYG{p}{)}\PYG{o}{.}\PYG{n}{decode}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{utf\PYGZhy{}8}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+            \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{message}\PYG{p}{:}
+                \PYG{k}{break}
+            \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{[}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{client\PYGZus{}address}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{] }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{message}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+            
+            \PYG{c+c1}{\PYGZsh{} Broadcast to all clients}
+            \PYG{n}{broadcast}\PYG{p}{(}\PYG{n}{message}\PYG{p}{,} \PYG{n}{client\PYGZus{}socket}\PYG{p}{)}
+        \PYG{k}{except}\PYG{p}{:}
+            \PYG{k}{break}
+    
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{[DISCONNECTED] }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{client\PYGZus{}address}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ disconnected.}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{client\PYGZus{}socket}\PYG{o}{.}\PYG{n}{close}\PYG{p}{(}\PYG{p}{)}
+
+\PYG{k}{def} \PYG{n+nf}{broadcast}\PYG{p}{(}\PYG{n}{message}\PYG{p}{,} \PYG{n}{sender\PYGZus{}socket}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{for} \PYG{n}{client} \PYG{o+ow}{in} \PYG{n}{clients}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{client} \PYG{o}{!=} \PYG{n}{sender\PYGZus{}socket}\PYG{p}{:}
+            \PYG{k}{try}\PYG{p}{:}
+                \PYG{n}{client}\PYG{o}{.}\PYG{n}{send}\PYG{p}{(}\PYG{n}{message}\PYG{o}{.}\PYG{n}{encode}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{utf\PYGZhy{}8}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}\PYG{p}{)}
+            \PYG{k}{except}\PYG{p}{:}
+                \PYG{n}{clients}\PYG{o}{.}\PYG{n}{remove}\PYG{p}{(}\PYG{n}{client}\PYG{p}{)}
+
+\PYG{k}{def} \PYG{n+nf}{start\PYGZus{}server}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{server} \PYG{o}{=} \PYG{n}{socket}\PYG{o}{.}\PYG{n}{socket}\PYG{p}{(}\PYG{n}{socket}\PYG{o}{.}\PYG{n}{AF\PYGZus{}INET}\PYG{p}{,} \PYG{n}{socket}\PYG{o}{.}\PYG{n}{SOCK\PYGZus{}STREAM}\PYG{p}{)}
+    \PYG{n}{server}\PYG{o}{.}\PYG{n}{bind}\PYG{p}{(}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{127.0.0.1}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+m+mi}{8080}\PYG{p}{)}\PYG{p}{)}
+    \PYG{n}{server}\PYG{o}{.}\PYG{n}{listen}\PYG{p}{(}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{[SERVER STARTED] Waiting for connections...}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+    
+    \PYG{k}{while} \PYG{k+kc}{True}\PYG{p}{:}
+        \PYG{n}{client\PYGZus{}socket}\PYG{p}{,} \PYG{n}{client\PYGZus{}address} \PYG{o}{=} \PYG{n}{server}\PYG{o}{.}\PYG{n}{accept}\PYG{p}{(}\PYG{p}{)}
+        \PYG{n}{clients}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{client\PYGZus{}socket}\PYG{p}{)}
+        \PYG{n}{thread} \PYG{o}{=} \PYG{n}{threading}\PYG{o}{.}\PYG{n}{Thread}\PYG{p}{(}\PYG{n}{target}\PYG{o}{=}\PYG{n}{handle\PYGZus{}client}\PYG{p}{,} \PYG{n}{args}\PYG{o}{=}\PYG{p}{(}\PYG{n}{client\PYGZus{}socket}\PYG{p}{,} \PYG{n}{client\PYGZus{}address}\PYG{p}{)}\PYG{p}{)}
+        \PYG{n}{thread}\PYG{o}{.}\PYG{n}{start}\PYG{p}{(}\PYG{p}{)}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{[ACTIVE CONNECTIONS] }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{threading}\PYG{o}{.}\PYG{n}{active\PYGZus{}count}\PYG{p}{(}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{clients} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}
+
+\PYG{k}{if} \PYG{n+nv+vm}{\PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{}} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:}
+    \PYG{n}{start\PYGZus{}server}\PYG{p}{(}\PYG{p}{)}
+\end{MintedVerbatim}
