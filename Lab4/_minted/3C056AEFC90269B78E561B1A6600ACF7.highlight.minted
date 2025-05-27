@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+ch}{\PYGZsh{}!/bin/bash}
+
+nc\PYG{+w}{ }\PYGZhy{}l\PYG{+w}{ }\PYG{l+m}{12345}
+\end{MintedVerbatim}

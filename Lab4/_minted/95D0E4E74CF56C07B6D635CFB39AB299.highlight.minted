@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+ch}{\PYGZsh{}!/bin/bash}
+
+\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}TEST\PYGZdq{}}\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }nc\PYG{+w}{ }\PYG{l+m}{192}.168.204.237\PYG{+w}{ }\PYG{l+m}{12345}
+\end{MintedVerbatim}

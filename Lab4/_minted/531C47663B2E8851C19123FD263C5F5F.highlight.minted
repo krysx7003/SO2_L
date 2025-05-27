@@ -1,0 +1,13 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+ch}{\PYGZsh{}!/bin/bash}
+
+\PYG{n+nb}{declare}\PYG{+w}{ }\PYGZhy{}i\PYG{+w}{ }\PYG{n+nv}{view\PYGZus{}count}\PYG{o}{=}\PYG{l+m}{0}
+\PYG{k}{while}\PYG{+w}{ }\PYG{n+nb}{true}
+\PYG{k}{do}
+\PYG{+w}{    }\PYG{n+nv}{view\PYGZus{}count}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}view\PYGZus{}count}+1
+\PYG{+w}{    }\PYG{n+nb}{echo}\PYG{+w}{ }\PYGZhy{}e\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{HTTP/1.1 200 OK\PYGZbs{}n\PYGZbs{}n\PYGZlt{}h1\PYGZgt{}}\PYG{k}{\PYGZdl{}(}date\PYG{+w}{ }+\PYGZpc{}F\PYGZus{}\PYGZpc{}H\PYGZhy{}\PYGZpc{}M\PYGZhy{}\PYGZpc{}S\PYG{k}{)}\PYG{l+s+s2}{\PYGZlt{}/h1\PYGZgt{}\PYGZbs{}n\PYGZlt{}h1\PYGZgt{}Ilosc wyswietlen: }\PYG{n+nv}{\PYGZdl{}view\PYGZus{}count}\PYG{l+s+s2}{\PYGZlt{}/h1\PYGZgt{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }index.html
+\PYG{+w}{    }cat\PYG{+w}{ }index.html\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }nc\PYG{+w}{ }\PYGZhy{}lN\PYG{+w}{ }\PYG{l+m}{8080}
+\PYG{k}{done}
+
+\PYG{c+c1}{\PYGZsh{} opisać curl i nc ( i opcje )}
+\end{MintedVerbatim}
